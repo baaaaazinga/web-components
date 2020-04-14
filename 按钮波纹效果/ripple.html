@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>波纹效果</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			flex-direction: column;
+			background: #040d15;
+		}
+		a{
+			position: relative;
+			display: inline-block;
+			padding: 12px 36px;
+			margin: 10px 0;
+			color: #fff;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-size: 18px;
+			overflow: hidden;
+			letter-spacing: 2px;
+			border-radius: 40px;
+			background: linear-gradient(90deg, #0162c8, #55e7fc)
+		}
+		.btn{
+			margin:50px auto; 
+			height: 50px; 
+			width: 100px;
+			color: #fff;
+			background: #1e90ff;
+			text-align: center;
+			line-height: 50px;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			user-select: none;
+			border: none;
+			outline: none;
+		}
+		a:nth-child(2){
+			background: linear-gradient(90deg, #755bea, #ff72c0);
+		}
+		._span{
+			position: absolute;
+			background: #fff;
+			transform: translate(-50%, -50%);
+			pointer-events: none;
+			border-radius: 50%;
+			animation: animate .5s linear;
+		}
+		@keyframes animate{
+			0%{
+				width: 0px;
+				height: 0px;
+				opacity: .5;
+			}
+			100%{
+				width: 500px;
+				height: 500px;
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- 有ripple类 -->
+	<a class="ripple" href="#">按 钮</a>
+	<!-- 没有ripple类 -->
+	<a class="" href="#">按 钮</a>
+	
+	<button class="ripple btn">按 钮</button>
+
+	<script type="text/javascript">
+		const buttons = document.querySelectorAll('a, button, div');
+
+		buttons.forEach(btn => {
+			btn.addEventListener('click', function(e) {
+				let classNames = String(e.target.className);
+				// 只有添加了ripple的元素才有点击的波纹效果
+				if(classNames.includes('ripple')){
+					btn.style.cssText = "position: relative;overflow: hidden;"
+					let x = e.clientX - e.target.offsetLeft;
+					let y = e.clientY - e.target.offsetTop;
+
+					let ripples = document.createElement('span');
+					ripples.classList.add('_span');
+					ripples.style.left = x + 'px';
+					ripples.style.top = y + 'px';
+					this.appendChild(ripples);
+
+					setTimeout(() => {
+						ripples.remove();
+					}, 800)
+				}
+			})
+		})
+	</script>
+</body>
+</html>
