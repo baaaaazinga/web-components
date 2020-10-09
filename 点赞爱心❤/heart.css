@@ -1,0 +1,126 @@
+:root {
+	--themeColor: red;	
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+svg {
+	width: 200px;
+	position: relative;
+	z-index: 9;
+}
+
+#heart {
+	fill: #eee;
+	stroke-width: 20px;
+	stroke: var(--themeColor);
+	stroke-dasharray: 1600;
+	stroke-dashoffset: 1600;
+	stroke-linecap: round;
+}
+
+span, span::after {
+	display: block;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background-color: transparent;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(0);
+
+	box-shadow: 0 -160px 0 var(--themeColor), 0 160px 0 var(--themeColor), 160px 0 0 var(--themeColor), -160px 0 0 var(--themeColor);
+}
+span::after {
+	content: '';
+	transform: translate(-50%, -50%) rotate(45deg) scale(0);
+}
+
+label {
+	cursor: pointer;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]:checked + svg #heart {
+	animation: 1s draw-heart linear forwards;
+}
+
+input[type="checkbox"]:checked + svg {
+	animation: 1s heart-pop linear forwards;
+}
+
+input[type="checkbox"]:checked ~span {
+	animation: .5s blink ease-in-out forwards .8s;
+}
+
+input[type="checkbox"]:checked ~span::after {
+	animation: .5s blink-after ease-in-out forwards .8s;
+}
+
+@keyframes draw-heart {
+	0% {
+		stroke-dashoffset: 1600;
+	}
+	80% {
+		stroke-dashoffset: 0;
+		fill: #eee;
+	}
+	100% {
+		fill: var(--themeColor);
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes heart-pop {
+	0% {
+		transform: scale(1);
+	}
+	70% {
+		transform: scale(1);
+	}
+	80% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes blink {
+	0% {
+		transform: translate(-50%, -50%) scale(0.5);
+		opacity: .8;
+	}
+	50% {
+		transform: translate(-50%, -50%) scale(1);
+		opacity: .8;
+	}
+	100% {
+		transform: translate(-50%, -50%) scale(1.2);
+		opacity: 0;
+	}
+}
+
+@keyframes blink-after {
+	0% {
+		transform: translate(-50%, -50%) rotate(45deg) scale(0.5);
+		opacity: .8;
+	}
+	50% {
+		transform: translate(-50%, -50%) rotate(45deg) scale(1);
+		opacity: .8;
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+		opacity: 0;
+	}
+}
