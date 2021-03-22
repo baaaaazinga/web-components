@@ -1,7 +1,12 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	<title>波纹效果</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>按钮波纹</title>
+
 	<style>
 		*{
 			margin: 0;
@@ -30,8 +35,8 @@
 			background: linear-gradient(90deg, #0162c8, #55e7fc)
 		}
 		.btn{
-			margin:50px auto; 
-			height: 50px; 
+			margin:50px auto;
+			height: 50px;
 			width: 100px;
 			color: #fff;
 			background: #1e90ff;
@@ -43,8 +48,6 @@
 			user-select: none;
 			border: none;
 			outline: none;
-		}
-		a:nth-child(2){
 			background: linear-gradient(90deg, #755bea, #ff72c0);
 		}
 		._span{
@@ -57,8 +60,8 @@
 		}
 		@keyframes animate{
 			0%{
-				width: 0px;
-				height: 0px;
+				width: 0;
+				height: 0;
 				opacity: .5;
 			}
 			100%{
@@ -70,37 +73,33 @@
 	</style>
 </head>
 <body>
-	<!-- 有ripple类 -->
-	<a class="ripple" href="#">按 钮</a>
-	<!-- 没有ripple类 -->
-	<a class="" href="#">按 钮</a>
-	
-	<button class="ripple btn">按 钮</button>
+<a class="ripple" href="#">按 钮</a>
+<button class="ripple btn">按 钮</button>
 
-	<script type="text/javascript">
-		const buttons = document.querySelectorAll('a, button, div');
+<script type="text/javascript">
+	const buttons = document.querySelectorAll('a, button, div');
 
-		buttons.forEach(btn => {
-			btn.addEventListener('click', function(e) {
-				let classNames = String(e.target.className);
-				// 只有添加了ripple的元素才有点击的波纹效果
-				if(classNames.includes('ripple')){
-					btn.style.cssText = "position: relative;overflow: hidden;"
-					let x = e.clientX - e.target.offsetLeft;
-					let y = e.clientY - e.target.offsetTop;
+	buttons.forEach(btn => {
+		btn.addEventListener('click', function(e) {
+			let classNames = String(e.target.className);
+			// 只有添加了ripple的元素才有点击的波纹效果
+			if(classNames.includes('ripple')){
+				btn.style.cssText = "position: relative;overflow: hidden;"
+				let x = e.clientX - e.target.offsetLeft;
+				let y = e.clientY - e.target.offsetTop;
 
-					let ripples = document.createElement('span');
-					ripples.classList.add('_span');
-					ripples.style.left = x + 'px';
-					ripples.style.top = y + 'px';
-					this.appendChild(ripples);
+				let ripples = document.createElement('span');
+				ripples.classList.add('_span');
+				ripples.style.left = x + 'px';
+				ripples.style.top = y + 'px';
+				this.appendChild(ripples);
 
-					setTimeout(() => {
-						ripples.remove();
-					}, 800)
-				}
-			})
+				setTimeout(() => {
+					ripples.remove();
+				}, 800)
+			}
 		})
-	</script>
+	})
+</script>
 </body>
 </html>
